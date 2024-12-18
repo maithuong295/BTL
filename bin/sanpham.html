@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link rel="shortcut icon" type="image/png" href="../src/img/logo1.png"/>
+
+  <link rel="stylesheet" href="./style.css" />
+  <title>Tất cả sản phẩm</title>
+  <style>
+    a {
+      text-decoration: none;
+    }
+
+    .w3-row-padding {
+      display: flex;
+    flex-wrap: wrap;
+    margin: 0 -1.5%; /* Đặt margin âm để điều chỉnh các ảnh hiển thị đúng cách */
+  }
+  .w3-quarter {
+    width: 23%; /* 25% với 2% margin mỗi bên tạo ra tổng cộng là 25% */
+    float: left;
+    padding: 0 1.5%; /* Padding bên trong cho mỗi ảnh */
+    margin: 1%; /* Margin dưới để tạo ra khoảng cách giữa các hàng */
+  }
+  @media screen and (max-width: 800px) {
+    .w3-quarter {
+      width: 48%; /* Chia đôi để hiển thị 2 ảnh trên hàng */
+    }
+  }
+
+  </style>
+</head>
+
+<!-- Navbar -->
+<div class="w3-top" id="navheader">
+  <div class="w3-bar " style="height: 60px;">
+    <div class="w3-bar-item " style="margin: 0; width: 200px;">
+      <a href="../trangchu.html"><img src="../src/img/logo1.png" alt="logo" style="width: 100%;margin-left: 24px;" /></a>
+    </div>
+    <div class="w3-dropdown-click w3-right" style="background-color: transparent;" id="dropmenu">
+      <button class=" fa fa-bars" 
+      style="margin:20px 20px;background-color:transparent;border: none; cursor: pointer;"
+      onclick="drops()"
+      ></button>
+      <div class="w3-dropdown-content w3-bar-block w3-border" style="right:0" id="Demo">
+        <a href="./sanpham.html" class="w3-bar-item w3-button">MUA NGAY</a>
+        <a href="../trangchu.html" class="w3-bar-item w3-button">TRANG CHỦ</a>
+        <a href="./gioithieu.html" class="w3-bar-item w3-button">GIỚI THIỆU</a>
+        <a href="./lienhe.html" class="w3-bar-item w3-button">LIÊN HỆ</a>
+      </div>
+    </div>
+    <div class="w3-sidebar w3-bar-block w3-card w3-animate-right" style="display:none;right:0;width: 20%;"
+        id="rightMenu">
+        <button onclick="closeRightMenu()" class="w3-bar-item  w3-large;" style="cursor: pointer;">
+          <p style="display: inline-block;">GIỎ HÀNG</p>
+          <p class="w3-right" style="display: inline-block;font-weight: bold;"> &times;</p>
+        </button>
+        <h3 style="margin-left: 10%;">Giỏ hàng của bạn còn trống. </h3>
+      </div>
+      <button class="w3-bar-item  w3-right fa fa-shopping-cart"
+        style="margin:10px 20px;cursor: pointer;background-color: transparent" onclick="openRightMenu()"></button>
+    <div class="w3-right">
+      <input type="text" class="w3-bar-item w3-input w3-round-xxlarge " placeholder="Search.."
+          style="margin:10px 0; display: none;" id="searchbar" onkeyup="searchFunction()">
+          <ul id="myUL">
+            <li><a href="./bin/gaovip.html">Gạo Vip</a></li>
+            <li><a href="./bin/chitiet.html">Gạo st25</a></li>
+            <li><a href="./bin/gaost24.html">Gạo st24</a></li>
+            <li><a href="./bin/gaothai.html">Gạo Thái Lan</a></li> 
+
+            <li><a href="./bin/gaovip.html">Gạo nếp cái hoa vàng</a></li>
+            <li><a href="./bin/chitiet.html">Gạo nếp nương Điện Biên</a></li>
+            <li><a href="./bin/gaost24.html">Gạo nếp Thái Lan</a></li>
+            <li><a href="./bin/gaothai.html">Gạo nếp cẩm</a></li>
+
+            <li><a href="./bin/gaovip.html">Gạo tám thái con kiến xanh</a></li>
+            <li><a href="./bin/chitiet.html">Gạo tám Thái Lan sữa</a></li>
+            <li><a href="./bin/gaost24.html">Gạo tám thái em bé</a></li>
+            <li><a href="./bin/gaothai.html">Gạo tám thái đỏ</a></li>
+
+            <li><a href="./bin/gaovip.html">Gạo Basmati</a></li>
+            <li><a href="./bin/chitiet.html">Wild Rice - Gạo hoang cổ đại</a></li>
+            <li><a href="./bin/gaost24.html">Gạo Long Grain Enriched</a></li>
+          </ul>
+      <button id="close-btn" class="fa fa-close"
+        style="margin:20px 20px;background-color:transparent;border: none; cursor: pointer;display: none;"
+        onclick="searchClose('close-btn')"></button>
+      <button id="search-btn" class="fa fa-search"
+        style="margin:20px 20px;background-color:transparent;border: none; cursor: pointer;"
+        onclick="searchDisplay('search-btn')"></button>
+    </div>
+    <a href="./lienhe.html" class="w3-bar-item  w3-right" style="margin:10px 20px">LIÊN HỆ </a>
+    <div class="w3-bar-item"></div>
+    <a href="./gioithieu.html" class="w3-bar-item  w3-right" style="margin:10px 20px">GIỚI THIỆU</a>
+    <a href="" class="w3-bar-item  " style="margin:10px 20px;font-weight: bold;">MUA NGAY!</a>
+    <a href="../trangchu.html" class="w3-bar-item  w3-right" style="margin:10px 20px;">TRANG CHỦ</a>
+  </div>
+</div>
+
+
+<!-- Sản phẩm bán chạy -->
+<div class="w3-container" style=" margin: 0 36px;margin-top: 100px;">
+  <h1 id="top-seller" style="font-size: 54px;">Sản phẩm bán chạy</h1><br />
+  <div style="" class="w3-row-padding"> 
+
+      <div class="w3-card-2 w3-quarter" style="">
+        <a href="./gaovip.html">
+          <img src="../src/img/cam.jpg" alt="" style="width: 100%;" class="w3-mobile">
+          <div style="margin-left: 10px;">
+            <h3>Gạo Vip <br> (gạo Campuchia)</h3>
+            <p>túi 10kg</p>
+            <p id="price">220.000đ</p>
+      
+          </div>
+        </a>
+      </div>
+
+      <div class="w3-card-2 w3-quarter" style="">
+        <a href="./chitiet.html">
+          <img src="../src/img/st25-lua-tom.jpg" alt="" style="width: 100%;">
+          <div style="margin-left: 10px;">
+            <h3>Gạo St25 lúa tôm<br> (DNTN Hồ Quang Trí)</h3>
+            <p>hộp 2kg</p>
+            <p id="price">120.000đ</p>
+          </div>
+        </a>
+      </div>
+    
+
+
+      <div class="w3-card-2 w3-quarter" style="">
+        <a href="gaost24.html">
+          <img src="../src/img/st24.jpg" alt="" style="width: 100%;">
+          <div style="margin-left: 10px;">
+            <h3>Gạo St24 Minh An <br> &nbsp;</h3>
+            <p>túi 5kg</p>
+            <p id="price">180.000đ</p>
+  
+          </div>
+        </a>
+      </div>
+
+      <div class="w3-card-2 w3-quarter" style="">
+        <a href="gaothai.html">
+          <img src="../src/img/thailan.jpg" alt="" style="width: 100%;">
+          <div style="margin-left: 10px;">
+            <h3>Gạo Thái Lan <br> Hom Mali Hoa Ly </h3>
+            <p>túi 10kg</p>
+            <p id="price">400.000đ</p>
+  
+          </div>
+        </a>
+      </div>
+  </div>
+</div>
+
+<!-- Tất cả sản phẩm -->
+<div class="w3-container w3-light-grey" style="margin: 50px 0px ; padding: 0 52px;">
+  <div style="display: flex;" class="">
+    <h1 id="top-seller" style="display: inline-block;font-size: 54px;" class="w3-half">Tất cả sản phẩm</h1><br />
+    <div class="w3-half w3-display-container">
+      <div class="filter" style="margin:3%;">
+        <div class="w3-dropdown-click w3-round-xxlarge">
+          <button onclick="dropDown('List1')" class="w3-button w3-border w3-border-black w3-round-xxlarge" style="">Xuất xứ <i class="fa fa-angle-down"></i></button>
+          <div id="List1" class="w3-dropdown-content w3-bar-block w3-border w3-round-xlarge w3-ul">
+            <li><input id="VN" type="checkbox" class="w3-check " rel="VietNam"  onchange="change('VN')"><label for="gaoViet"> Việt Nam</label></li>
+            <li><input id="TL" type="checkbox" class="w3-check " rel="ThaiLan"  onchange="change('TL')"><label for="gaoThai"> Thái Lan</label></li>
+            <li><input id="MY" type="checkbox" class="w3-check " rel="My"  onchange="change('MY')"><label for="gaoMy"> Mỹ</label></li>
+            <li><input id="AD" type="checkbox" class="w3-check " rel="AnDo" onchange="change('AD')"><label for="gaoAnDo"> Ấn Độ</label></li>
+
+          </div>
+        </div>
+
+        <div class="w3-dropdown-click w3-round-xxlarge" style="margin: 0 42px;">
+          <button onclick="dropDown('List2')" class="w3-button w3-border w3-border-black w3-round-xxlarge" style="">Loại gạo <i class="fa fa-angle-down"></i></button>
+          <div id="List2" class="w3-dropdown-content w3-bar-block w3-border w3-round-xlarge w3-ul">
+            <li><input type="checkbox" class="w3-check " name="" id="Nep" rel="NEP" onchange="change('Nep')"><label for="Nep"> Gạo nếp</label></li>
+            <li><input type="checkbox" class="w3-check " name="" id="Te" rel="TE" onchange="change('Te')"><label for="Te"> Gạo tẻ</label></li>
+            <li><input type="checkbox" class="w3-check " name="" id="Lut" rel="LUT" onchange="change('Lut')"><label for="Lut"> Gạo lứt</label></li>
+          </div>
+        </div>
+        
+        <div class="w3-dropdown-click w3-round-xxlarge">
+          <button onclick="dropDown('List3')" class="w3-button w3-border w3-border-black w3-round-xxlarge" style="">Khối lượng <i class="fa fa-angle-down"></i></button>
+          <div id="List3" class="w3-dropdown-content w3-bar-block w3-border w3-round-xlarge w3-ul">
+            <li><input type="checkbox" class="w3-check " name="" id="kg10" rel="k10kg" onchange="change('kg10')"><label for="kg10"> 10kg</label></li>
+            <li><input type="checkbox" class="w3-check " name="" id="kg5" rel="k5kg" onchange="change('kg5')"><label for="kg5"> 5kg</label></li>
+            <li><input type="checkbox" class="w3-check " name="" id="kg1" rel="k1kg" onchange="change('kg1')"><label for="kg1"> 1kg</label></li>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="w3-row-padding" id="sp" >
+    <!-- anh 1 -->
+    <div class="VietNam NEP k1kg w3-card-2 w3-quarter" style="background-color: white;" >
+      <a href="">
+        <img src="./iGao/nep-cai-hoa-vang-loai-1.jpg" loading="lazy" alt="" style="width: 100%;" class="">
+        <div style="margin-left: 10px;" >
+          <h3>Gạo nếp cái hoa vàng<br> (loại 1)</h3>
+          <p>túi 1kg</p>
+          <p id="price">35.000đ</p>
+        </div>
+      </a>
+    </div>
+
+    <!-- anh 2 -->
+    <div class="VietNam NEP k1kg w3-card-2 w3-quarter" style="background-color: white;" > 
+      <a href="">
+      <img src="./iGao/nep-nuong-copy.jpg" loading="lazy" alt=""  style="width: 100%;">
+      <div style="margin-left: 10px;">
+          <h3>Gạo nếp nương Điện Biên<br> &nbsp; </h3>
+          <p>túi 1kg</p>
+          <p id="price">40.000đ</p>
+    
+      </div>
+      </a>
+    </div>
+      <!-- anh 3 -->
+    <div class="VietNam NEP k1kg w3-card-2 w3-quarter" style="background-color: white;" >
+      <a href="">
+      <img src="./iGao/nep-cam-copy.jpg" loading="lazy" alt="" style="width: 100%;">
+      <div style="margin-left: 10px;">
+          <h3>Gạo nếp cẩm<br> &nbsp;</h3>
+          <p>túi 1kg</p>
+          <p id="price">65.000đ</p> 
+      </div>
+      </a>
+    </div>
+<!-- anh 4 -->
+    <div class="ThaiLan NEP k5kg w3-card-2 w3-quarter" style="background-color: white;" >
+      <a href="">
+      <img src="./iGao/nep-thai.jpg" loading="lazy" alt="" style="width: 100%;">
+      <div style="margin-left: 10px;">
+        <h3>Gạo nếp Thái Lan <br> Hom Mali Hoa Ly </h3>
+        <p>túi 5kg</p>
+        <p id="price">195.000đ</p> 
+      </div>
+      </a>
+    </div>
+  
+
+  <!-- anh 5 -->
+    <div class="ThaiLan TE k10kg w3-card-2 w3-quarter" style="background-color: white;" >
+      <a href="">
+        <img src="./GaoThai/lai-sua-copy.jpg" loading="lazy" alt="" style="width: 100%;" class="">
+        <div style="margin-left: 10px;">
+          <h3>Gạo tám Thái Lan sữa<br>&nbsp; </h3>
+          <p>túi 10kg</p>
+          <p id="price">230.000đ</p>
+      
+        </div>
+      </a>
+    </div>
+    
+    <!-- anh 6 -->
+    <div class="ThaiLan TE k10kg w3-card-2 w3-quarter" style="background-color: white;" >
+      <a href="">
+      <img src="./GaoThai/tam-thai-con-kien.jpg" loading="lazy" alt="" style="width: 100%;">
+      <div style="margin-left: 10px;">
+          <h3>Gạo tám thái con kiến xanh<br> &nbsp; </h3>
+          <p>túi 10kg</p>
+          <p id="price">220.000đ</p>
+    
+      </div>
+      </a>
+    </div>
+
+    <!-- anh 7 -->
+    <div class="ThaiLan TE k10kg w3-card-2 w3-quarter" style="background-color: white;" >
+      <a href="">
+      <img src="./GaoThai/tam-thai-em-be.jpg" loading="lazy" alt="" style="width: 100%;">
+      <div style="margin-left: 10px;">
+          <h3>Gạo tám thái em bé<br> &nbsp;</h3>
+          <p>túi 10kg</p>
+          <p id="price">220.000đ</p> 
+      </div>
+      </a>
+    </div>
+
+    <!-- anh 8 -->
+    <div class="ThaiLan TE k5kg w3-card-2 w3-quarter" style="background-color: white;" >
+      <a href="">
+      <img src="./GaoThai/tam-thai-do-tui-5kg.jpg" loading="lazy" alt="" style="width: 100%;">
+      <div style="margin-left: 10px;">
+        <h3>Gạo tám thái đỏ<br> &nbsp; </>
+        <p>túi 5kg</p>
+        <p id="price">210.000đ</p> 
+      </div>
+      </a>
+    </div>
+  
+
+  <!-- anh 9 -->
+    <div class="AnDo LUT k5kg w3-card-2 w3-quarter" style="background-color: white;" >
+      <a href="">
+        <img src="./GaoAnDo/basmati.jpg" loading="lazy" alt="" style="width: 100%;">
+        <div style="margin-left: 10px;">
+          <h3>Gạo Basmati<br> India</h3>
+          <p>túi 5kg</p>
+          <p id="price">290.000đ</p>
+      
+        </div>
+      </a>
+    </div>
+    <!-- anh 10 -->
+    <div class="AnDo LUT k1kg w3-card-2 w3-quarter" style="background-color: white;" >
+      <a href="">
+      <img src="./GaoAnDo/basmati1kg.jpg" loading="lazy" alt="" style="width: 100%;">
+      <div style="margin-left: 10px;">
+          <h3>Gạo Basmati<br> India</h3>
+          <p>túi 1kg</p>
+          <p id="price">70.000đ</p>
+      </div>
+      </a>
+    </div>
+<!-- anh 11 -->
+    <div class="My LUT k1kg w3-card-2 w3-quarter" style="background-color: white;" >
+      <a href="">
+      <img src="./GaoMy/wildrice.jpg" loading="lazy" alt="" style="width: 100%;">
+      <div style="margin-left: 10px;">
+          <h3>Wild Rice - Gạo hoang cổ đại<br> Bắc Mỹ</h3>
+          <p>túi 227g</p>
+          <p id="price">158.000đ</p> 
+      </div>
+      </a>
+    </div>
+<!-- anh 12 -->
+    <div class="My TE k10kg w3-card-2 w3-quarter" style="background-color: white;" >
+      <a href="">
+      <img src="./GaoMy/s-l1600.jpg" loading="lazy" alt="" style="width: 100%;">
+      <div style="margin-left: 10px;">
+        <h3>Gạo Long Grain Enriched <br> USA</h3>
+        <p>túi 11.34kg</p>
+        <p id="price">550.000đ</p> 
+      </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- footer -->
+<div class="w3-container w3-row-padding" style="margin-top: 64px;" id="footer">
+  <div class="w3-quarter w3-center">
+    <div style="margin: 24px 36px; color: gray; display:inline-block;">
+      <a href=""><img src="../src/img/logo1.png" alt="logo" style=""></a>
+      <p>Số điện thoại:0999.999.9999</p>
+      <p>Email: contractVNR@gmail.com</p>
+      <p>Địa chỉ: Trâu Quỳ, Gia Lâm, Hà Nội, Việt nam</p>
+    </div>
+  </div>
+
+  <div class="w3-quarter w3-center">
+    <div style="display: inline-block;color: gray;margin-top: 36px; margin-left:36px;">
+      <p id="foot-tilte" >SẢN PHẨM</p>
+      <p style="margin: 10px 0;"><a href="" style="text-decoration: none;">Gạo Việt</a></p>
+      <p style="margin: 10px 0;"><a href="" style="text-decoration: none;">Gạo Thái</a></p>
+      <p style="margin: 10px 0;"><a href="" style="text-decoration: none;">Gạo Mỹ</a></p>
+      <p style="margin: 10px 0;"><a href="" style="text-decoration: none;">Gạo Ấn Độ</a></p>
+    </div>
+  </div>
+  <div class="w3-quarter w3-center">
+    <div style="display: inline-block;color: gray;margin-top: 36px; margin-left:36px;">
+      <p id="foot-tilte">LIÊN HỆ</p>
+      <p style="margin: 10px 0;"><a href="" style="text-decoration: none;">Truyền thông</a></p>
+      <p style="margin: 10px 0;"><a href="" style="text-decoration: none;">Thông cáo báo chí</a></p>
+      <p style="margin: 10px 0;"><a href="" style="text-decoration: none;">Tin tức sự kiện</a></p>
+      <p style="margin: 10px 0;"><a href="" style="text-decoration: none;">Thư viện</a></p>
+    </div>
+  </div>
+
+  <div class="w3-quarter w3-center">
+    <div style="display: inline-block;color: gray; margin-top: 36px;  margin-left:36px;">
+      <p id="foot-tilte" style=" margin-bottom: 31px;">CÔNG TY TNHH VIETNAM'S RICE</p>
+      <p style="margin: 10px 0;"><a href="" style="text-decoration: none;">Mã số thuế:01354968720</a></p>
+      <p style="margin: 10px 0;"><a href="" style="text-decoration: none;">Ngày thành lập: 15/03/2024</a></p>
+      <p style="margin: 10px 0;"><a href="" style="text-decoration: none;">Lĩnh vực: Nông nghiệp, lương thực phẩm,<br>
+          xuất nhập khẩu lương thực, phát triển nông thôn</a></p>
+    </div>
+  </div>
+</div>
+
+
+
+<script src="./script.js"></script>
+</body>
+
+</html>
